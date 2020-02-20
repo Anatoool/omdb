@@ -27,7 +27,7 @@ export class Loader extends React.PureComponent {
     } = this.props;
     let IE = false;
 
-    if (navigator
+    if (global.IS_BROWSER && navigator
       && (navigator.appName === 'Microsoft Internet Explorer'
         || !!(navigator.userAgent.match(/Trident/)
         || navigator.userAgent.match(/rv:11/))

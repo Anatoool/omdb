@@ -72,8 +72,10 @@ export class Pagination extends React.Component {
           pageRangeDisplayed={2}
           marginPagesDisplayed={2}
           forcePage={+initialPage - 1}
-          previousLabel={<ArrowDownIcon />}
-          nextLabel={<ArrowDownIcon />}
+          {...(global.IS_BROWSER ? {
+            previousLabel: <ArrowDownIcon />,
+            nextLabel: <ArrowDownIcon />,
+          } : {})}
         />
       </div>
     );

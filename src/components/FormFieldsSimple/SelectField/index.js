@@ -117,7 +117,9 @@ export class Select extends React.Component {
           components={{
             IndicatorSeparator: () => null,
             ClearIndicator: () => null,
-            DropdownIndicator: () => <ArrowDownIcon className="select__arrow" />,
+            ...(global.IS_BROWSER ? {
+              DropdownIndicator: () => <ArrowDownIcon className="select__arrow" />,
+            } : {}),
             ValueContainer,
           }}
         />
