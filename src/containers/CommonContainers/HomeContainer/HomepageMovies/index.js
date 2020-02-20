@@ -12,6 +12,7 @@ import {
   getHomepageMovies as getHomepageMoviesAC,
   MOVIES_PROCESSING_KEYS,
 } from 'store/actions/movies';
+import Filters from './Filters';
 import MoviesList from './MoviesList';
 
 @connect(
@@ -46,6 +47,7 @@ export default class HomepageMovies extends React.PureComponent {
 
   state = {
     moviesListError: '',
+    initialFilterValues: {},
   };
 
   async componentDidMount() {
@@ -53,6 +55,7 @@ export default class HomepageMovies extends React.PureComponent {
     const { search = '' } = location;
     const currentQueriesObject = parse(search, { ignoreQueryPrefix: true });
     await this.getMovies(currentQueriesObject);
+    this.setInitialFilterValues(currentQueriesObject);
   }
 
   componentDidUpdate(prevProps) {
@@ -62,22 +65,41 @@ export default class HomepageMovies extends React.PureComponent {
       const prevQueriesObject = parse(prevProps.location.search, { ignoreQueryPrefix: true });
       const currentQueriesObject = parse(search, { ignoreQueryPrefix: true });
 
-      const { page: prevPage = 1 } = prevQueriesObject;
-      const { page: currentPage = 1 } = currentQueriesObject;
+      const {
+        page: prevPage = 1,
+        s: prevS = '',
+        y: prevY = '',
+      } = prevQueriesObject;
+      const {
+        page: currentPage = 1,
+        s: currentS = '',
+        y: currentY = '',
+      } = currentQueriesObject;
 
-      if (prevPage !== currentPage) {
+      if (
+        prevPage !== currentPage
+        || prevS !== currentS
+        || prevY !== currentY
+      ) {
         this.getMovies(currentQueriesObject);
+        this.setInitialFilterValues(currentQueriesObject);
       }
     }
   }
 
   getMovies = async ({
     page = 1,
+    s = '',
+    y = '',
   }) => {
     this.setState({ moviesListError: '' });
     const { getHomepageMovies } = this.props;
+    if (!s) {
+      return;
+    }
     const queryObject = {
-      s: 'bat',
+      s,
+      y,
       page,
     };
 
@@ -87,20 +109,27 @@ export default class HomepageMovies extends React.PureComponent {
     }
   };
 
+  setInitialFilterValues = ({ s = '', y = '' }) => {
+    this.setState({ initialFilterValues: { s, y } });
+  };
+
   render() {
     const { moviesProcessingState, homepageList } = this.props;
     const { totalResults } = homepageList;
-    const { moviesListError } = this.state;
+    const { moviesListError, initialFilterValues } = this.state;
 
     return (
       <div className="homepage-movies">
+        <div className="flex justify-content-center">
+          <Filters initialValues={initialFilterValues} />
+        </div>
         <Loader isShow={moviesProcessingState[MOVIES_PROCESSING_KEYS.HOMEPAGE_MOVIES]}>
           {moviesListError
             ? <ErrorPanel error={moviesListError} />
             : <MoviesList data={homepageList} />}
         </Loader>
         <div className="flex justify-content-center" style={{ marginTop: '3rem' }}>
-          <Pagination total={+totalResults} pageSize={10} />
+          {+totalResults ? <Pagination total={+totalResults} pageSize={10} /> : null}
         </div>
       </div>
     );

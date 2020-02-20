@@ -1,0 +1,33 @@
+.movies-filters
+  padding: 1.5rem 2rem
+  box-shadow: 0 6px 6px rgba(69,79,99,0.28)
+  width: 100%
+  max-width: 800px
+  border-radius: 4px
+
+  &__form
+    display: flex
+    justify-content: space-between
+
+  &__inputs-container
+    display: flex
+
+  &__search
+    width: 300px
+    margin-right: 1rem
+
+@media(max-width: 768px)
+  .movies-filters
+    padding: 1rem 1rem
+
+    &__form
+      flex-direction: column
+
+    &__inputs-container
+      flex-direction: column
+      margin-bottom: 1rem
+
+    &__search
+      width: auto
+      margin-right: 0
+      margin-bottom: 1rem

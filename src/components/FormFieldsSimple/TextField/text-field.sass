@@ -1,0 +1,60 @@
+.text-input-container
+  position: relative
+  color: $mid-grey
+
+  input
+    height: 48px
+    border: solid 1px $light-grey
+    border-radius: 6px
+    width: 100%
+    font-size: 1rem
+    padding: 0 12px
+    cursor: pointer
+
+    &:hover
+      border: solid 1px $navy
+    &::placeholder
+      color: rgba($mid-grey, 0.32)
+    &:focus
+      border: solid 1px $sky-blue !important
+      outline: none
+      & + label
+        color: $sky-blue !important
+      & + .text-input-container__bottom-text
+        color: $sky-blue
+
+    &:disabled
+      border: solid 1px $light-grey
+      background: $white
+      cursor: default
+      & + label
+        color: $light-grey
+        cursor: default
+      & + .text-input-container__bottom-text
+        color: $light-grey
+
+  label
+    font-size: 0.8125rem
+    cursor: pointer
+    position: absolute
+    left: 12px
+    top: -9px
+    padding: 0 1px
+    background: $white
+
+  &__bottom-text
+    position: absolute
+    bottom: -19px
+    font-size: 0.8125rem
+    color: $light-grey
+    left: 12px
+
+  &._error
+    input
+      border: solid 1px $danger
+
+    label
+      color: $danger
+    .text-input-container__bottom-text
+      color: $danger
+
