@@ -1,0 +1,31 @@
+.header
+  width: 100%
+  height: 52px
+  background: $white
+  display: flex
+  align-items: center
+  justify-content: space-between
+  position: fixed
+  z-index: 1
+  box-shadow: 0 4px 4px rgba(69,79,99,0.16)
+
+  &__left-container
+    display: flex
+    align-items: center
+    flex-grow: 1
+    margin-right: 20px
+
+  &__logo
+    margin: 0 24px 0 16px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    text-decoration: none !important
+    &-title
+      margin-left: 9px
+
+@media(max-width: 768px)
+  .header
+    &__logo
+      margin: 0 16px
+
