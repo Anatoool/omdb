@@ -1,0 +1,8 @@
+docker/data
+node_modules
+/.idea
+.idea\
+doc/generated
+build
+./server/
+.vscode/**
