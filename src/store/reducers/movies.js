@@ -2,6 +2,7 @@ import { MOVIES_ACTION_TYPES } from 'store/actions/movies';
 
 const initialState = {
   homepageList: {},
+  movieDetails: {},
   processing: {},
 };
 
@@ -11,6 +12,8 @@ function reducer(state = initialState, action = {}) {
   switch (type) {
     case MOVIES_ACTION_TYPES.MOVIES_GET_HOMEPAGE_LIST:
       return { ...state, homepageList: { ...payload } };
+    case MOVIES_ACTION_TYPES.MOVIES_GET_MOVIE_DETAILS:
+      return { ...state, movieDetails: { ...payload } };
     case MOVIES_ACTION_TYPES.MOVIES_CHANGE_PROCESSING:
       return { ...state, processing: { ...state.processing, [payload.key]: payload.newState } };
     default:

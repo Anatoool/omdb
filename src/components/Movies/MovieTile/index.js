@@ -16,9 +16,12 @@ export const MovieTile = (props) => {
     } = {},
     style,
   } = props;
+
+  const resultPoster = /^http/.test(Poster) ? Poster : '/assets/images/default-image.jpg';
+
   return (
     <div className="movie-tile" style={{ ...style }}>
-      <div className="movie-tile__image" style={{ backgroundImage: `url(${Poster})` }} />
+      <div className="movie-tile__image" style={{ backgroundImage: `url(${resultPoster})` }} />
       <div className="movie-tile__info">
 
         <div>

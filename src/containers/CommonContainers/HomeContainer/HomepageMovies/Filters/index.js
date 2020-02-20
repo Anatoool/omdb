@@ -6,7 +6,7 @@ import { Form, Field } from 'react-final-form';
 import { TextField } from 'components/FormFields/TextField';
 import { SelectField } from 'components/FormFields/SelectField';
 import { Button } from 'components/Button';
-import { CLIENT_PAGES} from 'consts';
+import { CLIENT_PAGES } from 'consts';
 import './movies-filters.sass';
 
 const yearsOptions = [];
