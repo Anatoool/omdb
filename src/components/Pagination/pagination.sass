@@ -1,0 +1,58 @@
+.pagination
+  display: flex
+  height: 28px
+  user-select: none
+  text-align: center
+  list-style: none
+
+.pagination__page
+  width: 28px
+  line-height: 28px
+  cursor: pointer
+  margin: 0 6px
+
+  &-link
+    display: block
+    outline: none
+    line-height: 28px
+
+  &:hover
+    background: rgba($light-grey, 0.25)
+
+  &-active
+    background: rgba($light-grey, 0.33)
+    font-weight: 600
+    color: $navy
+    cursor: default
+
+.pagination__previous,
+.pagination__next
+  width: 28px
+  cursor: pointer
+
+  &-link
+    outline: none
+    height: 28px
+    display: flex
+    align-items: center
+    justify-content: center
+
+  &:hover
+    background: rgba($light-grey, 0.25)
+
+.pagination__previous
+  margin-right: 6px
+  transform: rotate(90deg)
+
+.pagination__next
+  margin-left: 6px
+  transform: rotate(-90deg)
+
+.pagination__break
+  width: 28px
+
+.pagination__disabled
+  cursor: default !important
+  opacity: 0.5
+  &:hover
+    background: transparent !important
