@@ -7,6 +7,21 @@
 [lints]
 
 [options]
+# module resolver - doesnt work
+# module.system.node.resolve_dirname=node_modules
+# module.system.node.resolve_dirname=./src
+# module resolver - work
+module.name_mapper='^assets/\(.*\)$' -> '<PROJECT_ROOT>/src/assets/\1'
+module.name_mapper='^components/\(.*\)$' -> '<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^consts/\(.*\)$' -> '<PROJECT_ROOT>/src/consts/\1'
+module.name_mapper='^consts$' -> '<PROJECT_ROOT>/src/consts/index.js'
+module.name_mapper='^containers/\(.*\)$' -> '<PROJECT_ROOT>/src/containers/\1'
+module.name_mapper='^store/\(.*\)$' -> '<PROJECT_ROOT>/src/store/\1'
+module.name_mapper='^store$' -> '<PROJECT_ROOT>/src/store/index.js'
+module.name_mapper='^styles/\(.*\)$' -> '<PROJECT_ROOT>/src/styles/\1'
+module.name_mapper='^styles$' -> '<PROJECT_ROOT>/src/styles/index.sass'
+module.name_mapper='^utils/\(.*\)$' -> '<PROJECT_ROOT>/src/utils/\1'
+# extensions
 module.file_ext=.js
 module.file_ext=.jsx
 module.file_ext=.mjs
@@ -17,4 +32,3 @@ module.file_ext=.sass
 [strict]
 
 [untyped]
-.*/node_modules/*

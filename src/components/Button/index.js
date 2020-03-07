@@ -31,9 +31,9 @@ export class Button extends React.PureComponent<Props, State> {
     className: '',
     style: {},
     clickAreaSize: 60,
-    onClick: Function.prototype,
-    onFocus: Function.prototype,
-    onKeyPress: Function.prototype,
+    // onClick: Function.prototype,
+    // onFocus: Function.prototype,
+    // onKeyPress: Function.prototype,
   };
 
   state = {
@@ -66,9 +66,9 @@ export class Button extends React.PureComponent<Props, State> {
       className,
       style,
       clickAreaSize,
+      onClick,
       onFocus,
       onKeyPress,
-      onClick,
     } = this.props;
 
     const { mousePressed, x, y } = this.state;

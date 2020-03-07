@@ -1,12 +1,22 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button } from 'components/Button';
 import { Link } from 'react-router-dom';
 import { CLIENT_PAGES } from 'consts';
 
 import './movie-tile.sass';
 
-export const MovieTile = (props) => {
+type Props = {
+  data: {
+    Title: string,
+    Year: string,
+    Poster: string,
+    imdbID: string,
+  },
+  style?: {...},
+};
+
+export const MovieTile = (props: Props) => {
   const {
     data: {
       Title = '',
@@ -14,7 +24,7 @@ export const MovieTile = (props) => {
       Poster,
       imdbID,
     } = {},
-    style,
+    style = {},
   } = props;
 
   const resultPoster = /^http/.test(Poster) ? Poster : '/assets/images/default-image.jpg';
@@ -44,19 +54,4 @@ export const MovieTile = (props) => {
       </div>
     </div>
   );
-};
-
-MovieTile.propTypes = {
-  data: PropTypes.shape({
-    imdbID: PropTypes.string,
-    Title: PropTypes.string,
-    Year: PropTypes.string,
-    Poster: PropTypes.string,
-  }),
-  style: PropTypes.object,
-};
-
-MovieTile.defaultProps = {
-  data: {},
-  style: {},
 };
