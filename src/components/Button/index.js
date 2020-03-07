@@ -1,42 +1,49 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* @flow */
+import React, { type Node } from 'react';
 
 import './button.sass';
 
-export class Button extends React.PureComponent {
-  button = React.createRef();
+type Props = {
+  type: 'button' | 'submit' | 'reset',
+  children?: Node,
+  disabled?: boolean,
+  className: string,
+  style?: {...},
+  clickAreaSize: number,
+  onClick?: (...args: Array<any>) => any,
+  onFocus?: (...args: Array<any>) => any,
+  onKeyPress?: (...args: Array<any>) => any,
+};
 
-  static propTypes = {
-    type: PropTypes.string,
-    children: PropTypes.node,
-    disabled: PropTypes.bool,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    clickAreaSize: PropTypes.number,
-    action: PropTypes.func,
-    onFocus: PropTypes.func,
-    onKeyPress: PropTypes.func,
-  };
+type State = {
+  mousePressed: boolean,
+  x: number,
+  y: number,
+};
+
+export class Button extends React.PureComponent<Props, State> {
+  button: { current: null | HTMLButtonElement } = React.createRef();
 
   static defaultProps = {
-    type: '',
+    type: 'button',
     children: null,
     disabled: false,
     className: '',
     style: {},
     clickAreaSize: 60,
-    action: Function.prototype,
+    onClick: Function.prototype,
     onFocus: Function.prototype,
     onKeyPress: Function.prototype,
   };
 
   state = {
     mousePressed: false,
-    x: '0',
-    y: '0',
+    x: 0,
+    y: 0,
   };
 
-  setClickedState = (event) => {
+  setClickedState = (event: MouseEvent) => {
+    if (!this.button.current) return;
     const rect = this.button.current.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
@@ -61,7 +68,7 @@ export class Button extends React.PureComponent {
       clickAreaSize,
       onFocus,
       onKeyPress,
-      action,
+      onClick,
     } = this.props;
 
     const { mousePressed, x, y } = this.state;
@@ -70,13 +77,14 @@ export class Button extends React.PureComponent {
     const top = y - clickAreaSize / 2;
 
     return (
+      /* eslint-disable-next-line react/button-has-type */
       <button
         disabled={disabled}
-        onClick={action}
+        onClick={onClick}
         onFocus={onFocus}
         onKeyPress={onKeyPress}
         className={`btn ${className} ${pressedClassName}`}
-        type={type}
+        type={type || 'button'}
         ref={this.button}
         style={{ ...style }}
         onMouseDown={this.setClickedState}

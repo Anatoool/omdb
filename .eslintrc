@@ -1,6 +1,10 @@
 {
   "extends": ["airbnb"],
-  "plugins": ["prettier"],
+  "plugins": [
+    "prettier",
+    "flowtype",
+    "react"
+  ],
   "parser": "babel-eslint",
   "rules": {
     "import/extensions": "off",
@@ -22,7 +26,9 @@
     "react/jsx-props-no-spreading": "off",
     "no-nested-ternary": "off",
     "no-use-before-define": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "react/default-props-match-prop-types": ["error", { "allowRequiredDefaults": true }],
+    "react/require-default-props": "off"
   },
   "parserOptions": {
     "ecmaFeatures": {
