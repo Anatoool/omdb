@@ -32,3 +32,4 @@ module.file_ext=.sass
 [strict]
 
 [untyped]
+.*/node_modules/*

@@ -1,13 +1,23 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+/* @flow */
+import React, { PureComponent, type AbstractComponent } from 'react';
 
-export default function (Component) {
-  class fieldHOC extends PureComponent {
-    static propTypes = {
-      input: PropTypes.object.isRequired,
-      meta: PropTypes.object.isRequired,
-    };
+type FinalFormInputProps = {
+  input: {
+    onChange: (...args: Array<any>) => any,
+    onFocus: (...args: Array<any>) => any,
+    onBlur: (...args: Array<any>) => any,
+    value: {} | string | number,
+  },
+  meta: {
+    touched: boolean,
+    error: string,
+  },
+};
 
+export default function<Config: {}> (
+  Component: AbstractComponent<Config>,
+) {
+  class fieldHOC extends PureComponent<{...Config, ...FinalFormInputProps}> {
     render() {
       const {
         input,
@@ -24,7 +34,7 @@ export default function (Component) {
         value: input.value,
       };
       return (
-        <Component error={meta.touched ? meta.error : ''} {...tailProps} {...inputBehaviorProps} />
+        <Component {...tailProps} error={meta.touched ? meta.error : ''} {...inputBehaviorProps} />
       );
     }
   }

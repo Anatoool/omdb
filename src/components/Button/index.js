@@ -1,6 +1,5 @@
 /* @flow */
 import React, { type Node } from 'react';
-
 import './button.sass';
 
 type Props = {

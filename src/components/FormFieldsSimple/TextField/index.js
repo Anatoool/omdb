@@ -1,25 +1,24 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-
+/* @flow */
+import React, { PureComponent, type Node } from 'react';
 import './text-field.sass';
 
-export class TextFieldSimple extends PureComponent {
-  static propTypes = {
-    value: PropTypes.string,
-    label: PropTypes.string,
-    type: PropTypes.string,
-    placeholder: PropTypes.string,
-    name: PropTypes.string,
-    className: PropTypes.string,
-    style: PropTypes.object,
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    helperText: PropTypes.string,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-  };
+type Props = {
+  value: string,
+  label: string,
+  type: string,
+  placeholder: string,
+  name: string,
+  className: string,
+  style: {},
+  disabled: boolean,
+  error: string,
+  helperText: string,
+  onBlur?: (...args: Array<any>) => any,
+  onChange?: (...args: Array<any>) => any,
+  onFocus?: (...args: Array<any>) => any,
+};
 
+export class TextFieldSimple extends PureComponent<Props> {
   static defaultProps = {
     value: '',
     label: '',
@@ -36,7 +35,7 @@ export class TextFieldSimple extends PureComponent {
     onFocus: () => {},
   };
 
-  renderLabel = (inputId) => {
+  renderLabel = (inputId: string): Node => {
     const { label } = this.props;
     if (!label) {
       return <label style={{ display: 'none' }} htmlFor={inputId}>{label}</label>;

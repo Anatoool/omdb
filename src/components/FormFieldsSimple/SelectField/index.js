@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* @flow */
+import React, { type Node } from 'react';
 import ReactSelect, { components } from 'react-select';
 import { ArrowDownIcon } from 'components/SvgIcons';
 
 import './select.sass';
 
-const ValueContainer = (props) => {
+const ValueContainer = (props): Node => {
   const { selectProps = {}, children } = props || {};
   const { valueContainerIcon = null } = selectProps;
   return (
@@ -18,32 +18,29 @@ const ValueContainer = (props) => {
   );
 };
 
-export class Select extends React.Component {
-  static propTypes = {
-    options: PropTypes.arrayOf(PropTypes.shape({ label: PropTypes.string, value: PropTypes.string })),
-    placeholder: PropTypes.string,
-    noOptionsMessage: PropTypes.string,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    value: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.string,
-    ]),
-    name: PropTypes.string,
-    isMulti: PropTypes.bool,
-    valueContainerIcon: PropTypes.node,
-    label: PropTypes.string,
-    styleTypes: PropTypes.arrayOf(PropTypes.oneOf(['small-gray'])),
-  };
+type SelectProps = {
+  options: Array<{ label: string, value: string }>,
+  value: Array<string> | string | null,
+  placeholder: string,
+  noOptionsMessage: string,
+  onBlur: (...args: Array<any>) => any,
+  onChange: (string | Array<string>) => any,
+  onFocus: (...args: Array<any>) => any,
+  name: string,
+  label: string,
+  isMulti: boolean,
+  styleTypes: Array<'small-gray'>,
+  valueContainerIcon: Node,
+};
 
+export class Select extends React.PureComponent<SelectProps> {
   static defaultProps = {
     options: [],
     placeholder: '',
     noOptionsMessage: 'Not found options',
-    onChange: Function.prototype,
-    onFocus: Function.prototype,
-    onBlur: Function.prototype,
+    onChange: () => {},
+    onFocus: () => {},
+    onBlur: () => {},
     value: null,
     name: '',
     isMulti: false,
@@ -52,17 +49,20 @@ export class Select extends React.Component {
     styleTypes: [],
   };
 
-  onChange = (changeValue) => {
+  onChange = (
+    changeValue: ?{ value: string } | ?Array<{ value: string }>,
+  ): void => {
     const { onChange, isMulti } = this.props;
-    if (isMulti) {
-      onChange(changeValue ? changeValue.map(({ value }) => value) : []);
-    } else {
-      const { value } = changeValue;
+
+    if (!Array.isArray(changeValue)) {
+      const { value } = changeValue || {};
       onChange(value);
+    } else if (isMulti) {
+      onChange(changeValue ? changeValue.map(({ value }) => value) : []);
     }
   };
 
-  renderLabel = (inputId) => {
+  renderLabel = (inputId: string): Node => {
     const { label } = this.props;
     if (!label) {
       return <label style={{ display: 'none' }} htmlFor={inputId}>{label}</label>;
@@ -87,10 +87,8 @@ export class Select extends React.Component {
 
     const resultValueProps = {};
     if (value) {
-      if (isMulti) {
-        resultValueProps.value = options.filter(({ value: optVal }) => {
-          return value.find((val) => val === optVal);
-        });
+      if (isMulti && Array.isArray(value)) {
+        resultValueProps.value = options.filter(({ value: optVal }) => value.find((val) => val === optVal));
       } else {
         resultValueProps.value = options.find(({ value: optVal }) => optVal === value);
       }
