@@ -8,7 +8,7 @@ type Props = {
   children?: Node,
   disabled?: boolean,
   className: string,
-  style?: {...},
+  style?: {},
   clickAreaSize: number,
   onClick?: (...args: Array<any>) => any,
   onFocus?: (...args: Array<any>) => any,

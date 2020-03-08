@@ -13,7 +13,7 @@ type Props = {
     Poster: string,
     imdbID: string,
   },
-  style?: {...},
+  style?: {},
 };
 
 export const MovieTile = (props: Props) => {
