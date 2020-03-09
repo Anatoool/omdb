@@ -9,7 +9,7 @@ router.get('/*', async (req, res, next) => {
   req.store = configureStore({});
   next();
 });
-//
+
 router.get(`${CLIENT_PAGES.HOME}`, getHomepageDataMiddleware);
 
 router.get('/*', async (req, res, next) => {

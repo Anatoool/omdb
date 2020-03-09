@@ -12,6 +12,10 @@ const fs = require('fs');
 const filePath = path.resolve('./build/assets/ssr-index.html');
 const htmlData = fs.readFileSync(filePath, 'utf8');
 const statsFile = path.resolve('./build/assets/loadable-stats.json');
+const extractor = new ChunkExtractor({ statsFile, entrypoints: ['app'] });
+const scriptTags = extractor.getScriptTags(); // get @loadable/components script tags
+const linkTags = extractor.getLinkTags(); // get @loadable/components link tags (prefetch css and js files)
+const styleTags = extractor.getStyleTags(); // get @loadable/components style tags
 
 export default (req, res) => {
   // configure store
@@ -20,7 +24,6 @@ export default (req, res) => {
 
   // render the app as a string
   const context = {};
-  const extractor = new ChunkExtractor({ statsFile, entrypoints: ['app'] });
 
   const applicationHTML = ReactDOMServer.renderToString(
     <StaticRouter location={req.url} context={context}>
@@ -32,10 +35,6 @@ export default (req, res) => {
     </StaticRouter>,
   );
   const helmet = Helmet.renderStatic();
-
-  const scriptTags = extractor.getScriptTags(); // get @loadable/components script tags
-  const linkTags = extractor.getLinkTags(); // get @loadable/components link tags (prefetch css and js files)
-  const styleTags = extractor.getStyleTags(); // get @loadable/components style tags
 
   // inject the rendered app into our html and send it
 

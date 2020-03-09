@@ -3,9 +3,15 @@ import ReactPaginate from 'react-paginate';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { parse, stringify } from 'qs';
-import { ArrowDownIcon } from 'components/SvgIcons';
 
 import './pagination.sass';
+
+const arrowIcon = (
+  <img
+    alt="arrow"
+    src="/assets/images/icons/arrow-down.svg"
+  />
+);
 
 @withRouter
 export class Pagination extends React.Component {
@@ -72,10 +78,8 @@ export class Pagination extends React.Component {
           pageRangeDisplayed={2}
           marginPagesDisplayed={2}
           forcePage={+initialPage - 1}
-          {...(global.IS_BROWSER ? {
-            previousLabel: <ArrowDownIcon />,
-            nextLabel: <ArrowDownIcon />,
-          } : {})}
+          previousLabel={arrowIcon}
+          nextLabel={arrowIcon}
         />
       </div>
     );

@@ -18,7 +18,6 @@ module.exports = {
       ]),
       new webpack.DefinePlugin({
         'process.env': {
-          IS_BROWSER: true,
           API_DOMAIN: JSON.stringify(API_DOMAIN),
           NODE_ENV: JSON.stringify(NODE_ENV),
         },
@@ -36,10 +35,6 @@ module.exports = {
           options: {
             name: '[path][name].[ext]',
           },
-        },
-        {
-          test: /\.svg$/,
-          use: ['@svgr/webpack'],
         },
       ],
     },

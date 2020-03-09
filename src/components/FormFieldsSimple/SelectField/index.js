@@ -1,7 +1,6 @@
 /* @flow */
 import React, { type Node } from 'react';
 import ReactSelect, { components } from 'react-select';
-import { ArrowDownIcon } from 'components/SvgIcons';
 
 import './select.sass';
 
@@ -116,8 +115,15 @@ export class Select extends React.PureComponent<SelectProps> {
             IndicatorSeparator: () => null,
             ClearIndicator: () => null,
             ...(global.IS_BROWSER ? {
-              DropdownIndicator: () => <ArrowDownIcon className="select__arrow" />,
+
             } : {}),
+            DropdownIndicator: () => (
+              <img
+                alt="arrow"
+                src="/assets/images/icons/arrow-down.svg"
+                className="select__arrow"
+              />
+            ),
             ValueContainer,
           }}
         />
