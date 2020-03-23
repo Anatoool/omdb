@@ -19,7 +19,6 @@ const options = {
   historyApiFallback: true,
 };
 
-WebpackDevServer.addDevServerEntrypoints(config, options);
 const compiler = webpack(config);
 const server = new WebpackDevServer(compiler, options);
 
