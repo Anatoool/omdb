@@ -41,8 +41,8 @@ export default class MovieDetailsContainer extends React.PureComponent {
     movieDetailsError: '',
   };
 
-  async componentDidMount() {
-    await this.getMovie();
+  componentDidMount() {
+    this.getMovie();
   }
 
   getMovie = async () => {
